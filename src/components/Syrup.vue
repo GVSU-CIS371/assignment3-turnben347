@@ -1,8 +1,19 @@
 <template>
-  <div class="syrup"></div>
+  <!-- Syrup layer: only render if not "No Syrup" -->
+  <div
+    v-if="store.currentSyrup.id !== 's1'"
+    class="syrup"
+    :style="{ backgroundColor: store.currentSyrup.color }"
+  ></div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useBeverageStore } from "../stores/beverageStore";
+
+// Pinia store for current beverage selections
+const store = useBeverageStore();
+</script>
+
 <style lang="scss" scoped>
 .syrup {
   transform: translateY(400%);
@@ -11,12 +22,6 @@
   height: 20%;
   animation: pour-tea 2s 1s forwards;
   z-index: 2;
-  background: repeating-linear-gradient(
-    45deg,
-    var(--texture-color),
-    var(--texture-color) 10px,
-    rgba(225, 207, 149, 1) 10px,
-    rgba(225, 207, 149, 1) 20px
-  );
+  transition: background-color 0.3s ease;
 }
 </style>
